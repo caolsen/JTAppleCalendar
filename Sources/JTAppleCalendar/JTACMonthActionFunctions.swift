@@ -107,6 +107,11 @@ extension JTACMonthView {
     }
     
     func scrollTo(point: CGPoint, triggerScrollToDateDelegate: Bool? = nil, isAnimationEnabled: Bool, extraAddedOffset: CGFloat, completionHandler: (() -> Void)?) {
+        if triggerScrollToDateDelegate == true {
+            let dateSegmentInfo = datesAtCurrentOffset(point)
+            calendarDelegate?.calendar(self, willScrollToDateSegmentWith: dateSegmentInfo)
+        }
+        
         isScrollInProgress = true
         if let validCompletionHandler = completionHandler { scrollDelayedExecutionClosure.append(validCompletionHandler) }
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
